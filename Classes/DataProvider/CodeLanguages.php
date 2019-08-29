@@ -20,14 +20,14 @@ class CodeLanguages
         $highlight = GeneralUtility::makeInstance(Highlighter::class);
         $languages = $highlight->listLanguages();
 
-        // Add default to items as in the highlight processor can handle the automatic detection of the language.
+        // Add default to items as the highlight processor can handle the automatic detection of the language.
         $config['items'][] = ['detect automatically', ''];
 
         // Add all languages to dropdown.
         foreach ($languages as $language) {
             $config['items'][] = [$language, $language];
         }
-        #
+
         return $config;
     }
 }
