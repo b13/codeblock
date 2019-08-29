@@ -5,7 +5,6 @@ tt_content.codeblock {
     dataProcessing.1567071612 = B13\Codeblock\DataProcessing\HighlightProcessor
     dataProcessing.1567071612 {
         field = bodytext
-        layout.field = layout
         as = bodytext_formatted
     }
 }

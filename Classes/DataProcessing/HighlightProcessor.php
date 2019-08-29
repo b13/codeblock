@@ -39,7 +39,18 @@ class HighlightProcessor implements DataProcessorInterface
     {
         $fieldName = $processorConfiguration['field'];
         $targetVariableName = $cObj->stdWrapValue('as', $processorConfiguration, 'bodytext_formatted');
-        $highlighted = GeneralUtility::makeInstance(Highlighter::class)->highlight('php', $processedData['data'][$fieldName]);
+        $highlight = GeneralUtility::makeInstance(Highlighter::class);
+
+        // Let highlight.php decide which code language to use from all registered if "detect automatically" selected.
+        if (!$processedData['data']['codeblock_codelanguage']) {
+            $languages = $highlight->listLanguages();
+            $highlight->setAutodetectLanguages($languages);
+            $highlighted = $highlight->highlightAuto($processedData['data'][$fieldName]);
+        } else {
+            $highlighted = $highlight->highlight($processedData['data']['codeblock_codelanguage'], $processedData['data'][$fieldName]);
+        }
+
+        /** @var Highlighter $highlight */
         $processedOutput = '<pre><code class="hljs ' . $highlighted->language . '">' . $highlighted->value . '</code></pre>';
         $processedData[$targetVariableName] = $processedOutput;
         return $processedData;
