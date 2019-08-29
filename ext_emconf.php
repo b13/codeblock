@@ -11,5 +11,8 @@ $EM_CONF['codeblock'] = [
     'createDirs' => '',
     'clearCacheOnLoad' => 1,
     'author_company' => 'b13 GmbH, Stuttgart',
-    'version' => '0.0.1'
+    'version' => '0.0.1',
+    'constraints' => [
+            'depends' => [],
+        ],
 ];
