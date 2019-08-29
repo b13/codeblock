@@ -1,18 +1,21 @@
 {
-  "name": "b13/codeblock",
-  "type": "typo3-cms-extension",
-  "description": "Adds a new content element for text with code highlighting.",
-  "replace": {
-    "codeblock": "self.version"
-  },
-  "extra": {
-    "typo3/cms": {
-      "extension-key": "codeblock"
-    }
-  },
-  "autoload": {
-    "psr-4": {
-      "B13\\Codeblock\\": "Classes/"
-    }
-  }
+	"name": "b13/codeblock",
+	"type": "typo3-cms-extension",
+	"description": "Adds a new content element for text with code highlighting.",
+	"require": {
+		"scrivo/highlight.php": "^9.15"
+	},
+	"replace": {
+		"codeblock": "self.version"
+	},
+	"extra": {
+		"typo3/cms": {
+			"extension-key": "codeblock"
+		}
+	},
+	"autoload": {
+		"psr-4": {
+			"B13\\Codeblock\\": "Classes/"
+		}
+	}
 }
