@@ -50,8 +50,8 @@ class HighlightProcessor implements DataProcessorInterface
             $highlighted = $highlight->highlight($processedData['data']['code_language'], $processedData['data'][$fieldName]);
         }
 
-        $processedOutput = '<pre><code class="hljs ' . $highlighted->language . '">' . $highlighted->value . '</code></pre>';
-        $processedData[$targetVariableName] = $processedOutput;
+        $processedData[$targetVariableName]['language'] = $highlighted->language;
+        $processedData[$targetVariableName] = $highlighted->value;
         return $processedData;
     }
 }
