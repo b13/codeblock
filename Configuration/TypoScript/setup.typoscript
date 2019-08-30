@@ -1,6 +1,6 @@
 tt_content.codeblock =< lib.contentElement
 tt_content.codeblock {
-    templateName = Contentblock
+    templateName = Codeblock
     
     templateRootPaths.0 = EXT:codeblock/Resources/Private/Templates
 
