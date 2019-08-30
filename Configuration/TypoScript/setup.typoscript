@@ -1,5 +1,7 @@
 tt_content.codeblock =< lib.contentElement
 tt_content.codeblock {
+    templateName = Contentblock
+    
     templateRootPaths.10 = EXT:codeblock/Resources/Private/Templates
 
     dataProcessing.1567071612 = B13\Codeblock\DataProcessing\HighlightProcessor
