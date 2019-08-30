@@ -32,7 +32,7 @@ $GLOBALS['TCA']['tt_content']['types']['codeblock'] = [
 
 // Add dropdown for code language to TCA.
 $additionalColumns = [
-    'codeblock_codelanguage' => [
+    'code_language' => [
         'label' => 'Code Language',
         'config' => [
             'type' => 'select',
@@ -47,7 +47,7 @@ $additionalColumns = [
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes(
     'tt_content',
-    'codeblock_codelanguage',
+    'code_language',
     'codeblock',
     'before:bodytext'
 );
