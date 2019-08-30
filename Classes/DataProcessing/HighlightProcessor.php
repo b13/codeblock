@@ -50,8 +50,9 @@ class HighlightProcessor implements DataProcessorInterface
             $highlighted = $highlight->highlight($processedData['data']['code_language'], $processedData['data'][$fieldName]);
         }
 
+        $processedData[$targetVariableName]['code'] = $highlighted->value;
         $processedData[$targetVariableName]['language'] = $highlighted->language;
-        $processedData[$targetVariableName] = $highlighted->value;
+        $processedData[$targetVariableName]['lines'] = preg_split('/\r\n|\r|\n/', $highlighted->value);
         return $processedData;
     }
 }
