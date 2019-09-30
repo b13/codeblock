@@ -1,12 +1,24 @@
 # Codeblock
 ## What does Codeblock do?
-Codeblock is a TYPO3 extension. It adds a content element which processes the bodytext by highlight.php so that the input text has the styling of highlight.js.
+Codeblock is a TYPO3 extension. It adds a content element to display source code
+processed using highlight.php to render code snippets with syntax highlighting.
+The CSS-classes applied are identical to what highlight.js would render, but the
+transformation takes place on the server (instead of the browser when using JS).
+
+The rendered result is cached like any other content element with the page in 
+TYPO3. Using this extension you can skip adding hightlight.js to your JS-build. 
+This helps reduce the JavaScript-size for your website and also allows rendering 
+of source code snippets for AMP pages for example.
 
 ## Code Languages
-The extension supports all code language that highlight.php knows. They can either be specified or detected automatically within the content element.
+The extension supports all code language that highlight.php supports. These can 
+either be specified by choosing a setting inside the content element or 
+detected automatically.
 
 ## Styles
-A CSS needs to be included manually. The classes added to the HTML output are generated automatically. Their styling need to be specified in a CSS file only in order to add a custom styling. E.g. for JetBrain's darcula theme:
+CSS styling needs to be included manually. The classes added to the HTML output 
+are generated automatically. Their styling need to be specified in a CSS file 
+in order to add a custom styling. E.g. for JetBrain's darcula theme:
 
 
 ```
