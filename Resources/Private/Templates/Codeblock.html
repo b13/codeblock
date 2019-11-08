@@ -1,12 +1,11 @@
 <f:layout name="Default" />
 
 <f:section name="Main">
-	Codeblock
 
-	Source: {data.bodytext -> f:format.raw()}
-
-	<br><br>
-
-	Result: {bodytext_formatted -> f:format.raw()}
+	<pre>
+		<code class="hljs {bodytext_formatted.language}">
+			{bodytext_formatted.code -> f:format.raw()}
+		</code>
+	</pre>
 
 </f:section>
