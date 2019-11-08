@@ -3,7 +3,7 @@
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTcaSelectItem(
     'tt_content',
     'CType',
-    ['Codeblock', 'codeblock', 'b13'],
+    ['Codeblock', 'codeblock', 'content-codeblock'],
     'html',
     'after'
 );

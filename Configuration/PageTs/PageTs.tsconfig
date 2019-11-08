@@ -4,7 +4,7 @@ mod.wizards.newContentElement {
             title = Codeblock
             description = Adds a new content element for text with code highlighting.
             tt_content_defValues.CType = codeblock
-            iconIdentifier = b13
+            iconIdentifier = content-codeblock
         }
         common.show := addToList(codeblock)
     }
