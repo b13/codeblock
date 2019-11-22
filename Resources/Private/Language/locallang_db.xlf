@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages">
+		<header>
+			<description>Language labels for EXT:codeblock</description>
+			<authorName>b13 GmbH</authorName>
+			<authorEmail>typo3@b13.com</authorEmail>
+		</header>
+		<body>
+			<trans-unit id="tt_content.CType">
+				<source>Code Block</source>
+			</trans-unit>
+            <trans-unit id="tt_content.code_language">
+                <source>Code Language</source>
+            </trans-unit>
+            <trans-unit id="tt_content.code_language.detect_automatically">
+                <source>detect automatically</source>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

@@ -3,7 +3,7 @@
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTcaSelectItem(
     'tt_content',
     'CType',
-    ['Codeblock', 'codeblock', 'content-codeblock'],
+    ['LLL:EXT:codeblock/Resources/Private/Language/locallang_db.xlf:tt_content.CType', 'codeblock', 'content-codeblock'],
     'html',
     'after'
 );
@@ -33,7 +33,7 @@ $GLOBALS['TCA']['tt_content']['types']['codeblock'] = [
 // Add dropdown for code language to TCA.
 $additionalColumns = [
     'code_language' => [
-        'label' => 'Code Language',
+        'label' => 'LLL:EXT:codeblock/Resources/Private/Language/locallang_db.xlf:tt_content.code_language',
         'config' => [
             'type' => 'select',
             'default' => '',
