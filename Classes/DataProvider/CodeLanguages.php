@@ -28,7 +28,7 @@ class CodeLanguages
         $languages = $highlight->listLanguages();
 
         // Add default to items as the highlight processor can handle the automatic detection of the language.
-        $config['items'][] = ['detect automatically', ''];
+        $config['items'][] = ['LLL:EXT:codeblock/Resources/Private/Language/locallang_db.xlf:tt_content.code_language.detect_automatically', ''];
 
         // Add all languages to dropdown.
         foreach ($languages as $language) {

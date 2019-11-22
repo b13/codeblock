@@ -1,8 +1,8 @@
-# Codeblock
+# Code Block
 
 ## What does this extension do?
 
-Codeblock is a TYPO3 extension. It adds a content type to display source code
+Code Block is a TYPO3 extension. It adds a content type to display source code
 processed using `highlight.php` to render code snippets with syntax highlighting.
 The CSS-classes applied are identical to what highlight.js would render, but the
 transformation takes place on the server (instead of the browser when using JS).
@@ -134,6 +134,6 @@ and a few lines of TypoScript and a Fluid Template.
 This extension adds a content type in the same way we create custom content types for our TYPO3 projects at 
 [b13](https://b13.com).
 
-`codeblock` was initially created by Andreas Hämmerl and David Steeb in 2019 for [b13, Stuttgart](https://b13.com). We 
+`EXT:codeblock` was initially created by Andreas Hämmerl and David Steeb in 2019 for [b13, Stuttgart](https://b13.com). We 
 use it to display source code in our blog on [b13.com](https://b13.com), where we have a full-AMP website and do not
 include non-AMP JavaScript files.

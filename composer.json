@@ -1,7 +1,7 @@
 {
 	"name": "b13/codeblock",
 	"type": "typo3-cms-extension",
-	"description": "Adds a new content element for text with code highlighting.",
+	"description": "Adds a new content element type for text with code highlighting.",
 	"require": {
 		"scrivo/highlight.php": "^9.15"
 	},
