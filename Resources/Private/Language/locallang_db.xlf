@@ -16,6 +16,9 @@
             <trans-unit id="tt_content.code_language.detect_automatically">
                 <source>detect automatically</source>
             </trans-unit>
+            <trans-unit id="tt_content.wizard.description">
+                <source>A code snippet element to show text with code highlighting.</source>
+            </trans-unit>
         </body>
     </file>
 </xliff>
