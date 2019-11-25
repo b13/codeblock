@@ -1,8 +1,8 @@
 mod.wizards.newContentElement {
     wizardItems {
         common.elements.codeblock {
-            title = Code Block
-            description = Adds a new content element for text with code highlighting.
+            title = LLL:EXT:codeblock/Resources/Private/Language/locallang_db.xlf:tt_content.CType
+            description = LLL:EXT:codeblock/Resources/Private/Language/locallang_db.xlf:tt_content.wizard.description
             tt_content_defValues.CType = codeblock
             iconIdentifier = content-codeblock
         }
