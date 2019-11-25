@@ -6,7 +6,7 @@
 		"scrivo/highlight.php": "^9.15"
 	},
 	"replace": {
-		"codeblock": "self.version"
+		"b13/codeblock": "self.version"
 	},
 	"extra": {
 		"typo3/cms": {
