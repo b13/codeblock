@@ -1,7 +1,9 @@
 {
 	"name": "b13/codeblock",
 	"type": "typo3-cms-extension",
-	"description": "Adds a new content element type for text with code highlighting.",
+	"description": "Custom Content Type for code snippet elements to show text with code highlighting in TYPO3.",
+	"homepage": "https://github.com/b13/codeblock",
+	"license": ["GPL-2.0-or-later"],
 	"require": {
 		"scrivo/highlight.php": "^9.15"
 	},
@@ -12,6 +14,9 @@
 		"typo3/cms": {
 			"extension-key": "codeblock"
 		}
+	},
+	"support": {
+		"issues": "https://github.com/b13/codeblock/issues"
 	},
 	"autoload": {
 		"psr-4": {
