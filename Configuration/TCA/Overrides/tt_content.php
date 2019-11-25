@@ -28,6 +28,13 @@ $GLOBALS['TCA']['tt_content']['types']['codeblock'] = [
                     rowDescription,
                 --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:extended,
             ',
+    'columnsOverrides' => [
+        'bodytext' => [
+            'config' => [
+                'fixedFont' => true,
+            ],
+        ],
+    ]
 ];
 
 // Add dropdown for code language to TCA.
