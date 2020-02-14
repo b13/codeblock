@@ -138,4 +138,4 @@ This extension adds a content type in the same way we create custom content type
 use it to display source code in our blog on [b13.com](https://b13.com), where we have a full-AMP website and do not
 include non-AMP JavaScript files.
 
-Sharing our expertise. [Find more TYPO3 extensions we have developed](https://b13.com/useful-typo3-extensions-from-b13-to-you) that help us deliver value in client projects. As part of the way we work, we focus on testing and best practices to ensure long-term performance, reliability, and results in all our code. 
+[Find more TYPO3 extensions we have developed](https://b13.com/useful-typo3-extensions-from-b13-to-you) that help us deliver value in client projects. As part of the way we work, we focus on testing and best practices to ensure long-term performance, reliability, and results in all our code. 
