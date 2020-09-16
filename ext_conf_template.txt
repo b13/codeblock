@@ -1,0 +1,2 @@
+# cat=Backend; type=string; label=CSS file for backend preview
+backendPreviewStyles = EXT:codeblock/Resources/Public/Styles/GitHub.css
