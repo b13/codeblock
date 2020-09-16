@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace B13\Codeblock\DataProcessing;
 
 /*
@@ -25,9 +27,6 @@ class HighlightProcessor implements DataProcessorInterface
      */
     protected $contentDataProcessor;
 
-    /**
-     * Constructor
-     */
     public function __construct()
     {
         $this->contentDataProcessor = GeneralUtility::makeInstance(ContentDataProcessor::class);

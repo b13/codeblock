@@ -7,15 +7,15 @@ processed using `highlight.php` to render code snippets with syntax highlighting
 The CSS-classes applied are identical to what highlight.js would render, but the
 transformation takes place on the server (instead of the browser when using JS).
 
-The rendered result is cached like any other content element with the page in 
-TYPO3. Using this extension you can skip adding highlight.js to your JS-build. 
-This helps reduce the JavaScript size for your website and also allows rendering 
+The rendered result is cached like any other content element with the page in
+TYPO3. Using this extension you can skip adding highlight.js to your JS-build.
+This helps reduce the JavaScript size for your website and also allows rendering
 of source code snippets for AMP pages for example.
 
 ## Code Languages
 
-The extension supports all code languages that highlight.php supports. These can 
-either be specified by choosing a setting inside the content element or 
+The extension supports all code languages that highlight.php supports. These can
+either be specified by choosing a setting inside the content element or
 detected automatically.
 
 ## Installation
@@ -42,11 +42,11 @@ sense.
 
 ## Styles
 
-CSS styling needs to be included manually. The classes added to the HTML output 
-are generated automatically. Their styling need to be specified in a CSS file 
+CSS styling needs to be included manually. The classes added to the HTML output
+are generated automatically. Their styling need to be specified in a CSS file
 in order to add a custom styling. E.g. for JetBrain's darcula theme:
 
-```
+```css
 .hljs {
   display: block;
   overflow-x: auto;
@@ -119,23 +119,23 @@ in order to add a custom styling. E.g. for JetBrain's darcula theme:
 }
 ```
 
-This extension uses `highlight.php` (see https://github.com/scrivo/highlight.php). 
+This extension uses `highlight.php` (see https://github.com/scrivo/highlight.php).
 This package includes [a lot of different CSS style themes](https://github.com/scrivo/highlight.php/tree/master/styles) you can use.
- 
+
 ## License
 
 As TYPO3 Core, _codeblock_ is licensed under GPL2 or later. See the LICENSE file for more details.
 
 ## Background, Authors & Further Maintenance
 
-TYPO3 is highly configurable and it is easy to add custom content types to the system using a few lines of TCA 
+TYPO3 is highly configurable and it is easy to add custom content types to the system using a few lines of TCA
 configuration, a simple PageTS configuration to add the type to the list of elements in the New Content Element Wizard,
-and a few lines of TypoScript and a Fluid Template. 
-This extension adds a content type in the same way we create custom content types for our TYPO3 projects at 
+and a few lines of TypoScript and a Fluid Template.
+This extension adds a content type in the same way we create custom content types for our TYPO3 projects at
 [b13](https://b13.com).
 
-`EXT:codeblock` was initially created by Andreas Hämmerl and David Steeb in 2019 for [b13, Stuttgart](https://b13.com). We 
+`EXT:codeblock` was initially created by Andreas Hämmerl and David Steeb in 2019 for [b13, Stuttgart](https://b13.com). We
 use it to display source code in our blog on [b13.com](https://b13.com), where we have a full-AMP website and do not
 include non-AMP JavaScript files.
 
-[Find more TYPO3 extensions we have developed](https://b13.com/useful-typo3-extensions-from-b13-to-you) that help us deliver value in client projects. As part of the way we work, we focus on testing and best practices to ensure long-term performance, reliability, and results in all our code. 
+[Find more TYPO3 extensions we have developed](https://b13.com/useful-typo3-extensions-from-b13-to-you) that help us deliver value in client projects. As part of the way we work, we focus on testing and best practices to ensure long-term performance, reliability, and results in all our code.
