@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace B13\Codeblock\DataProvider;
 
 /*
@@ -21,7 +23,7 @@ class CodeLanguages
      * @param array $config
      * @return array
      */
-    public function getAll($config)
+    public function getAll($config): array
     {
         // Get all languages from highlight.php.
         $highlight = GeneralUtility::makeInstance(Highlighter::class);
