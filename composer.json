@@ -22,5 +22,8 @@
 		"psr-4": {
 			"B13\\Codeblock\\": "Classes/"
 		}
+	},
+	"require-dev": {
+		"typo3/tailor": "^1.2"
 	}
 }
