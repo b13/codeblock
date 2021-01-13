@@ -1,15 +1,16 @@
 <?php
 
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTcaSelectItem(
-    'tt_content',
-    'CType',
-    ['LLL:EXT:codeblock/Resources/Private/Language/locallang_db.xlf:tt_content.CType', 'codeblock', 'content-codeblock'],
-    'html',
-    'after'
-);
+call_user_func(static function () {
+    \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTcaSelectItem(
+        'tt_content',
+        'CType',
+        ['LLL:EXT:codeblock/Resources/Private/Language/locallang_db.xlf:tt_content.CType', 'codeblock', 'content-codeblock'],
+        'html',
+        'after'
+    );
 
-$GLOBALS['TCA']['tt_content']['types']['codeblock'] = [
-    'showitem' => '
+    $GLOBALS['TCA']['tt_content']['types']['codeblock'] = [
+        'showitem' => '
                 --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:general,
                     --palette--;;general,
                     --palette--;;headers,
@@ -28,33 +29,33 @@ $GLOBALS['TCA']['tt_content']['types']['codeblock'] = [
                     rowDescription,
                 --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:extended,
             ',
-    'columnsOverrides' => [
-        'bodytext' => [
+        'columnsOverrides' => [
+            'bodytext' => [
+                'config' => [
+                    'fixedFont' => true,
+                ],
+            ],
+        ]
+    ];
+
+    $additionalColumns = [
+        'code_language' => [
+            'label' => 'LLL:EXT:codeblock/Resources/Private/Language/locallang_db.xlf:tt_content.code_language',
             'config' => [
-                'fixedFont' => true,
+                'type' => 'select',
+                'default' => '',
+                'itemsProcFunc' => \B13\Codeblock\DataProvider\CodeLanguages::class . '->getAll',
+                'renderType' => 'selectSingle',
             ],
         ],
-    ]
-];
+    ];
 
-// Add dropdown for code language to TCA.
-$additionalColumns = [
-    'code_language' => [
-        'label' => 'LLL:EXT:codeblock/Resources/Private/Language/locallang_db.xlf:tt_content.code_language',
-        'config' => [
-            'type' => 'select',
-            'default' => '',
-            'itemsProcFunc' => 'B13\\Codeblock\\DataProvider\\CodeLanguages->getAll',
-            'renderType' => 'selectSingle',
-        ],
-    ],
-];
+    \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTCAcolumns('tt_content', $additionalColumns);
 
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTCAcolumns('tt_content', $additionalColumns);
-
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes(
-    'tt_content',
-    'code_language',
-    'codeblock',
-    'before:bodytext'
-);
+    \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes(
+        'tt_content',
+        'code_language',
+        'codeblock',
+        'before:bodytext'
+    );
+});
