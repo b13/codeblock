@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace B13\Codeblock\Hooks;
 
 /*
@@ -9,8 +11,11 @@ namespace B13\Codeblock\Hooks;
  * of the License, or any later version.
  */
 
+use Highlight\Highlighter;
 use TYPO3\CMS\Backend\View\PageLayoutView;
 use TYPO3\CMS\Backend\View\PageLayoutViewDrawItemHookInterface;
+use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
+use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -33,14 +38,46 @@ class CodeblockPreviewRenderer implements PageLayoutViewDrawItemHookInterface
         &$headerContent,
         &$itemContent,
         array &$row
-    ) {
-        if ($row['CType'] === 'codeblock') {
-            if ($row['bodytext']) {
-                $bodytext = GeneralUtility::fixed_lgd_cs($row['bodytext'], 1000);
-                $itemContent .= $parentObject->linkEditContent(nl2br(htmlentities($bodytext)), $row) . '<br />';
+    )
+    {
+        if ($row['CType'] === 'codeblock' && $row['bodytext']) {
+            $highlight = GeneralUtility::makeInstance(Highlighter::class);
+
+            if (!$row['code_language']) {
+                $languages = $highlight->listLanguages();
+                $highlight->setAutodetectLanguages($languages);
+                $highlighted = $highlight->highlightAuto($row['bodytext']);
+            } else {
+                $highlighted = $highlight->highlight($row['code_language'], $row['bodytext']);
             }
 
-            $drawItem = false;
+            $bodytext = '<pre style="padding:2px;"><code class="hljs ' . $highlighted->language . '">' . $highlighted->value . '</code></pre>';
+            $itemContent .= $parentObject->linkEditContent((($bodytext)), $row);
+
+            $styles = $this->getStyles();
+            if ($styles) {
+                $pageRenderer = GeneralUtility::makeInstance(PageRenderer::class);
+                $pageRenderer->addCssInlineBlock('ext-codeblock', $styles);
+            }
         }
+
+        $drawItem = false;
+    }
+
+    protected function getStyles(): string
+    {
+        $previewFile = '';
+        try {
+            $previewFile = GeneralUtility::makeInstance(ExtensionConfiguration::class)->get('codeblock', 'backendPreviewStyles');
+        } catch (\Exception $e) {
+            // do nothing
+        }
+        $previewFile = GeneralUtility::getFileAbsFileName($previewFile);
+
+        if (!is_file($previewFile)) {
+            $previewFile = GeneralUtility::getFileAbsFileName('EXT:codeblock/Resources/Public/Styles/GitHub.css');
+        }
+
+        return file_get_contents($previewFile);
     }
 }
