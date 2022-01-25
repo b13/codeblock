@@ -9,6 +9,8 @@ call_user_func(static function () {
         'after'
     );
 
+    $GLOBALS['TCA']['tt_content']['ctrl']['typeicon_classes']['codeblock'] = 'content-codeblock';
+
     $GLOBALS['TCA']['tt_content']['types']['codeblock'] = [
         'showitem' => '
                 --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:general,
