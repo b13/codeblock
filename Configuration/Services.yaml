@@ -1,0 +1,15 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    B13\Codeblock\:
+        resource: '../Classes/*'
+
+    B13\Codeblock\DataProcessing\HighlightProcessor:
+        public: true
+    B13\Codeblock\Listener\PageContentPreviewRendering:
+      tags:
+        - name: event.listener
+          identifier: 'b13/codeblock/page-content-preview-rendering'

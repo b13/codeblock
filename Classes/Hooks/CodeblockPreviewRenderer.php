@@ -1,4 +1,5 @@
 <?php
+
 namespace B13\Codeblock\Hooks;
 
 /*
@@ -11,6 +12,7 @@ namespace B13\Codeblock\Hooks;
 
 use TYPO3\CMS\Backend\View\PageLayoutView;
 use TYPO3\CMS\Backend\View\PageLayoutViewDrawItemHookInterface;
+use TYPO3\CMS\Core\Configuration\Features;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -37,10 +39,12 @@ class CodeblockPreviewRenderer implements PageLayoutViewDrawItemHookInterface
         if ($row['CType'] === 'codeblock') {
             if ($row['bodytext']) {
                 $bodytext = GeneralUtility::fixed_lgd_cs($row['bodytext'], 1000);
-                $itemContent .= $parentObject->linkEditContent(nl2br(htmlentities($bodytext)), $row) . '<br />';
+                $row['bodytext'] = $bodytext;
+                if ((GeneralUtility::makeInstance(Features::class))->isFeatureEnabled('fluidBasedPageModule') === false) {
+                    $itemContent .= $parentObject->linkEditContent(nl2br(htmlentities($bodytext)), $row) . '<br />';
+                    $drawItem = false;
+                }
             }
-
-            $drawItem = false;
         }
     }
 }

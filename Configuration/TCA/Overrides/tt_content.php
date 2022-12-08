@@ -1,5 +1,7 @@
 <?php
 
+defined('TYPO3') or die();
+
 call_user_func(static function () {
     \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTcaSelectItem(
         'tt_content',
@@ -37,7 +39,7 @@ call_user_func(static function () {
                     'fixedFont' => true,
                 ],
             ],
-        ]
+        ],
     ];
 
     $additionalColumns = [
@@ -60,4 +62,7 @@ call_user_func(static function () {
         'codeblock',
         'before:bodytext'
     );
+
+    // for fluidBasedPageModule enabled (always for TYPO3 > 11)
+    $GLOBALS['TCA']['tt_content']['types']['codeblock']['previewRenderer'] = \B13\Codeblock\Backend\Preview\ContentPreviewRenderer::class;
 });
