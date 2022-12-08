@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace B13\Codeblock\DataProcessing;
@@ -22,14 +23,11 @@ use TYPO3\CMS\Frontend\ContentObject\DataProcessorInterface;
  */
 class HighlightProcessor implements DataProcessorInterface
 {
-    /**
-     * @var ContentDataProcessor
-     */
-    protected $contentDataProcessor;
+    protected ContentDataProcessor $contentDataProcessor;
 
-    public function __construct()
+    public function __construct(ContentDataProcessor $contentDataProcessor)
     {
-        $this->contentDataProcessor = GeneralUtility::makeInstance(ContentDataProcessor::class);
+        $this->contentDataProcessor = $contentDataProcessor;
     }
 
     /**
@@ -49,7 +47,7 @@ class HighlightProcessor implements DataProcessorInterface
         $highlight = GeneralUtility::makeInstance(Highlighter::class);
 
         // Let highlight.php decide which code language to use from all registered if "detect automatically" is selected.
-        if (!$processedData['data']['code_language']) {
+        if (!($processedData['data']['code_language'] ?? true)) {
             $languages = $highlight->listLanguages();
             $highlight->setAutodetectLanguages($languages);
             $highlighted = $highlight->highlightAuto($processedData['data'][$fieldName]);
