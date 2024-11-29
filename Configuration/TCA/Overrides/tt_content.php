@@ -3,10 +3,24 @@
 defined('TYPO3') or die();
 
 call_user_func(static function () {
+
+    if ((\TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Information\Typo3Version::class))->getMajorVersion() < 12) {
+        $CTypeSelectItem = [
+            'LLL:EXT:codeblock/Resources/Private/Language/locallang_db.xlf:tt_content.CType',
+            'codeblock',
+            'content-codeblock'
+        ];
+    } else {
+        $CTypeSelectItem = [
+            'label' => 'LLL:EXT:codeblock/Resources/Private/Language/locallang_db.xlf:tt_content.CType',
+            'value' => 'codeblock',
+            'icon' => 'content-codeblock'
+        ];
+    }
     \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTcaSelectItem(
         'tt_content',
         'CType',
-        ['LLL:EXT:codeblock/Resources/Private/Language/locallang_db.xlf:tt_content.CType', 'codeblock', 'content-codeblock'],
+        $CTypeSelectItem,
         'html',
         'after'
     );
