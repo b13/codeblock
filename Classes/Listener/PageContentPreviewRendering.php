@@ -13,6 +13,7 @@ namespace B13\Codeblock\Listener;
  */
 
 use TYPO3\CMS\Backend\View\Event\PageContentPreviewRenderingEvent;
+use TYPO3\CMS\Core\Information\Typo3Version;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class PageContentPreviewRendering
@@ -20,9 +21,11 @@ class PageContentPreviewRendering
     public function __invoke(PageContentPreviewRenderingEvent $event): void
     {
         $record = $event->getRecord();
-        if (($record['CType'] ?? '') === 'codeblock' && trim($record['bodytext'] ?? '') !== '') {
-            $record['bodytext'] = GeneralUtility::fixed_lgd_cs($record['bodytext'], 1000);
-            $event->setRecord($record);
+        if ((new Typo3Version())->getMajorVersion() < 14) {
+            if (($record['CType'] ?? '') === 'codeblock' && trim($record['bodytext'] ?? '') !== '') {
+                $record['bodytext'] = GeneralUtility::fixed_lgd_cs($record['bodytext'], 1000);
+                $event->setRecord($record);
+            }
         }
     }
 }
