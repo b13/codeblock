@@ -13,14 +13,18 @@ namespace B13\Codeblock\Backend\Preview;
  */
 
 use TYPO3\CMS\Backend\View\BackendLayout\Grid\GridColumnItem;
+use TYPO3\CMS\Core\Domain\RecordInterface;
 
 class ContentPreviewRenderer extends \TYPO3\CMS\Backend\Preview\StandardContentPreviewRenderer
 {
     public function renderPageModulePreviewContent(GridColumnItem $item): string
     {
         $record = $item->getRecord();
-        if (trim($record['bodytext'] ?? '') !== '') {
-            return $this->linkEditContent(nl2br(htmlentities($record['bodytext'])), $record) . '<br />';
+        $bodytext = $record instanceof RecordInterface
+            ? (string)($record->get('bodytext') ?? '')
+            : (string)($record['bodytext'] ?? '');
+        if (trim($bodytext) !== '') {
+            return $this->linkEditContent(nl2br(htmlentities($bodytext)), $record) . '<br />';
         }
         return parent::renderPageModulePreviewContent($item);
     }
