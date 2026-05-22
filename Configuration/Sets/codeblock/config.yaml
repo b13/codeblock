@@ -1,0 +1,4 @@
+name: b13/codeblock
+label: 'b13: Code Block content element'
+dependencies:
+  - typo3/fluid-styled-content
