@@ -11,7 +11,10 @@ use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 // Register the CType, its showitem layout, the typeicon and the wizard entry
 // in a single call. addRecordType() supersedes the older combination of
 // addPlugin() / addTcaSelectItem() plus a manual $GLOBALS['TCA'][...]['types']
-// assignment. The "extended" tab is appended automatically.
+// assignment. The General, Language, Access, Notes and Extended tabs (plus
+// their underlying system palettes) are added automatically based on the
+// ctrl section since v13.3 (Feature #104814) — we only declare element-
+// specific fields and any non-system tabs we actually want.
 ExtensionManagementUtility::addRecordType(
     [
         'label' => 'LLL:EXT:codeblock/Resources/Private/Language/locallang_db.xlf:tt_content.CType',
@@ -21,23 +24,14 @@ ExtensionManagementUtility::addRecordType(
         'group' => 'default',
     ],
     '
-        --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:general,
-            --palette--;;general,
-            --palette--;;headers,
-            code_language,
-            bodytext;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:bodytext_formlabel,
+        --palette--;;headers,
+        code_language,
+        bodytext;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:bodytext_formlabel,
         --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.appearance,
             --palette--;;frames,
             --palette--;;appearanceLinks,
-        --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:language,
-            --palette--;;language,
-        --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:access,
-            --palette--;;hidden,
-            --palette--;;access,
         --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:categories,
             categories,
-        --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:notes,
-            rowDescription,
     ',
     [
         'previewRenderer' => ContentPreviewRenderer::class,
