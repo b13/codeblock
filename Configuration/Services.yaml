@@ -7,9 +7,10 @@ services:
     B13\Codeblock\:
         resource: '../Classes/*'
 
+    # DataProcessors are resolved via TypoScript and instantiated by core, so they need public visibility.
     B13\Codeblock\DataProcessing\HighlightProcessor:
         public: true
-    B13\Codeblock\Listener\PageContentPreviewRendering:
-      tags:
-        - name: event.listener
-          identifier: 'b13/codeblock/page-content-preview-rendering'
+
+    # itemsProcFunc callbacks are resolved by class name and need public visibility, too.
+    B13\Codeblock\DataProvider\CodeLanguages:
+        public: true

@@ -13,31 +13,33 @@ namespace B13\Codeblock\DataProvider;
  */
 
 use Highlight\Highlighter;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
- * Class which provides a function to get all languages known by highlight.php.
+ * Populates the "code_language" select field with all languages
+ * known to highlight.php plus an "auto detect" entry.
  */
-class CodeLanguages
+final class CodeLanguages
 {
+    public function __construct(
+        private readonly Highlighter $highlighter
+    ) {
+    }
+
     /**
-     * @param array $config
-     * @return array
+     * itemsProcFunc callback for the "code_language" TCA select field.
      */
-    public function getAll($config): array
+    public function getAll(array &$config): void
     {
-        // Get all languages from highlight.php.
-        $highlight = GeneralUtility::makeInstance(Highlighter::class);
-        $languages = $highlight->listLanguages();
+        $config['items'][] = [
+            'label' => 'LLL:EXT:codeblock/Resources/Private/Language/locallang_db.xlf:tt_content.code_language.detect_automatically',
+            'value' => '',
+        ];
 
-        // Add default to items as the highlight processor can handle the automatic detection of the language.
-        $config['items'][] = ['LLL:EXT:codeblock/Resources/Private/Language/locallang_db.xlf:tt_content.code_language.detect_automatically', ''];
-
-        // Add all languages to dropdown.
-        foreach ($languages as $language) {
-            $config['items'][] = [$language, $language];
+        foreach ($this->highlighter->listLanguages() as $language) {
+            $config['items'][] = [
+                'label' => $language,
+                'value' => $language,
+            ];
         }
-
-        return $config;
     }
 }

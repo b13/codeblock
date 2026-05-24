@@ -1,13 +1,23 @@
 {
 	"name": "b13/codeblock",
 	"type": "typo3-cms-extension",
-	"description": "Custom Content Type for code snippet elements to show text with code highlighting in TYPO3.",
+	"description": "Custom content type for displaying source code with syntax highlighting in TYPO3.",
 	"homepage": "https://github.com/b13/codeblock",
 	"license": ["GPL-2.0-or-later"],
 	"require": {
-		"scrivo/highlight.php": "^9.15",
-		"php": "^7.4 || ~8.0",
-		"typo3/cms-core": "^10.4 || ^11.5 || ^12.0 || ^13.0 || ^14.0"
+		"php": "^8.2",
+		"typo3/cms-core": "^13.4 || ^14.0",
+		"typo3/cms-backend": "^13.4 || ^14.0",
+		"typo3/cms-frontend": "^13.4 || ^14.0",
+		"scrivo/highlight.php": "^9.15"
+	},
+	"require-dev": {
+		"typo3/tailor": "^1.5"
+	},
+	"autoload": {
+		"psr-4": {
+			"B13\\Codeblock\\": "Classes/"
+		}
 	},
 	"extra": {
 		"typo3/cms": {
@@ -16,13 +26,5 @@
 	},
 	"support": {
 		"issues": "https://github.com/b13/codeblock/issues"
-	},
-	"autoload": {
-		"psr-4": {
-			"B13\\Codeblock\\": "Classes/"
-		}
-	},
-	"require-dev": {
-		"typo3/tailor": "^1.2"
 	}
 }

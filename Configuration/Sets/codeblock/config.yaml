@@ -1,0 +1,5 @@
+name: b13/codeblock
+label: 'b13: Code Block content element'
+description: 'Adds a "Code Block" content type for syntax-highlighted source snippets.'
+dependencies:
+  - typo3/fluid-styled-content

@@ -1,52 +1,40 @@
 <?php
 
+declare(strict_types=1);
+
 defined('TYPO3') or die();
 
-call_user_func(static function () {
+use B13\Codeblock\Backend\Preview\ContentPreviewRenderer;
+use B13\Codeblock\DataProvider\CodeLanguages;
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 
-    if ((\TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Information\Typo3Version::class))->getMajorVersion() < 12) {
-        $CTypeSelectItem = [
-            'LLL:EXT:codeblock/Resources/Private/Language/locallang_db.xlf:tt_content.CType',
-            'codeblock',
-            'content-codeblock'
-        ];
-    } else {
-        $CTypeSelectItem = [
-            'label' => 'LLL:EXT:codeblock/Resources/Private/Language/locallang_db.xlf:tt_content.CType',
-            'value' => 'codeblock',
-            'icon' => 'content-codeblock'
-        ];
-    }
-    \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTcaSelectItem(
-        'tt_content',
-        'CType',
-        $CTypeSelectItem,
-        'html',
-        'after'
-    );
-
-    $GLOBALS['TCA']['tt_content']['ctrl']['typeicon_classes']['codeblock'] = 'content-codeblock';
-
-    $GLOBALS['TCA']['tt_content']['types']['codeblock'] = [
-        'showitem' => '
-                --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:general,
-                    --palette--;;general,
-                    --palette--;;headers,
-                    bodytext;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:bodytext_formlabel,
-                --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.appearance,
-                    --palette--;;frames,
-                    --palette--;;appearanceLinks,
-                --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:language,
-                    --palette--;;language,
-                --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:access,
-                    --palette--;;hidden,
-                    --palette--;;access,
-                --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:categories,
-                    categories,
-                --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:notes,
-                    rowDescription,
-                --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:extended,
-            ',
+// Register the CType, its showitem layout, the typeicon and the wizard entry
+// in a single call. addRecordType() supersedes the older combination of
+// addPlugin() / addTcaSelectItem() plus a manual $GLOBALS['TCA'][...]['types']
+// assignment. The General, Language, Access, Notes and Extended tabs (plus
+// their underlying system palettes) are added automatically based on the
+// ctrl section since v13.3 (Feature #104814) — we only declare element-
+// specific fields and any non-system tabs we actually want.
+ExtensionManagementUtility::addRecordType(
+    [
+        'label' => 'LLL:EXT:codeblock/Resources/Private/Language/locallang_db.xlf:tt_content.CType',
+        'description' => 'LLL:EXT:codeblock/Resources/Private/Language/locallang_db.xlf:tt_content.wizard.description',
+        'value' => 'codeblock',
+        'icon' => 'content-codeblock',
+        'group' => 'default',
+    ],
+    '
+        --palette--;;headers,
+        code_language,
+        bodytext;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:bodytext_formlabel,
+        --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.appearance,
+            --palette--;;frames,
+            --palette--;;appearanceLinks,
+        --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:categories,
+            categories,
+    ',
+    [
+        'previewRenderer' => ContentPreviewRenderer::class,
         'columnsOverrides' => [
             'bodytext' => [
                 'config' => [
@@ -54,29 +42,21 @@ call_user_func(static function () {
                 ],
             ],
         ],
-    ];
+    ],
+    'after:html'
+);
 
-    $additionalColumns = [
+ExtensionManagementUtility::addTCAcolumns(
+    'tt_content',
+    [
         'code_language' => [
             'label' => 'LLL:EXT:codeblock/Resources/Private/Language/locallang_db.xlf:tt_content.code_language',
             'config' => [
                 'type' => 'select',
-                'default' => '',
-                'itemsProcFunc' => \B13\Codeblock\DataProvider\CodeLanguages::class . '->getAll',
                 'renderType' => 'selectSingle',
+                'default' => '',
+                'itemsProcFunc' => CodeLanguages::class . '->getAll',
             ],
         ],
-    ];
-
-    \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTCAcolumns('tt_content', $additionalColumns);
-
-    \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes(
-        'tt_content',
-        'code_language',
-        'codeblock',
-        'before:bodytext'
-    );
-
-    // for fluidBasedPageModule enabled (always for TYPO3 > 11)
-    $GLOBALS['TCA']['tt_content']['types']['codeblock']['previewRenderer'] = \B13\Codeblock\Backend\Preview\ContentPreviewRenderer::class;
-});
+    ]
+);
