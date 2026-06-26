@@ -1,0 +1,11 @@
+mod.wizards.newContentElement {
+    wizardItems {
+        common.elements.codeblock {
+            title = LLL:EXT:codeblock/Resources/Private/Language/locallang_db.xlf:tt_content.CType
+            description = LLL:EXT:codeblock/Resources/Private/Language/locallang_db.xlf:tt_content.wizard.description
+            tt_content_defValues.CType = codeblock
+            iconIdentifier = content-codeblock
+        }
+        common.show := addToList(codeblock)
+    }
+}
