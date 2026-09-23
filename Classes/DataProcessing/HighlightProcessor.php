@@ -46,13 +46,18 @@ class HighlightProcessor implements DataProcessorInterface
         $targetVariableName = $cObj->stdWrapValue('as', $processorConfiguration, 'bodytext_formatted');
         $highlight = GeneralUtility::makeInstance(Highlighter::class);
 
+        // The column is nullable, so a record can carry NULL rather than the empty
+        // string the TCA default writes. Normalise before deciding, because "??"
+        // only substitutes for NULL and would send it on to the highlighter.
+        $language = trim((string)($processedData['data']['code_language'] ?? ''));
+
         // Let highlight.php decide which code language to use from all registered if "detect automatically" is selected.
-        if (!($processedData['data']['code_language'] ?? true)) {
+        if ($language === '') {
             $languages = $highlight->listLanguages();
             $highlight->setAutodetectLanguages($languages);
             $highlighted = $highlight->highlightAuto($processedData['data'][$fieldName]);
         } else {
-            $highlighted = $highlight->highlight($processedData['data']['code_language'], $processedData['data'][$fieldName]);
+            $highlighted = $highlight->highlight($language, $processedData['data'][$fieldName]);
         }
 
         $processedData[$targetVariableName]['code'] = $highlighted->value;
