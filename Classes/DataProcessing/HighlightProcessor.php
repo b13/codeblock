@@ -51,13 +51,23 @@ class HighlightProcessor implements DataProcessorInterface
         // only substitutes for NULL and would send it on to the highlighter.
         $language = trim((string)($processedData['data']['code_language'] ?? ''));
 
+        $highlighted = null;
+        if ($language !== '') {
+            try {
+                $highlighted = $highlight->highlight($language, $processedData['data'][$fieldName]);
+            } catch (\DomainException $e) {
+                // The stored language is not registered - it may have been dropped from
+                // the list, or the record may come from an installation that had it.
+                // Detect instead, so a stale value does not take the page down.
+                $highlighted = null;
+            }
+        }
+
         // Let highlight.php decide which code language to use from all registered if "detect automatically" is selected.
-        if ($language === '') {
+        if ($highlighted === null) {
             $languages = $highlight->listLanguages();
             $highlight->setAutodetectLanguages($languages);
             $highlighted = $highlight->highlightAuto($processedData['data'][$fieldName]);
-        } else {
-            $highlighted = $highlight->highlight($language, $processedData['data'][$fieldName]);
         }
 
         $processedData[$targetVariableName]['code'] = $highlighted->value;
