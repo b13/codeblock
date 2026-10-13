@@ -18,6 +18,22 @@ The extension supports all code languages that highlight.php supports. These can
 either be specified by choosing a setting inside the content element or
 detected automatically.
 
+Automatic detection scores the snippet against every language highlight.php
+knows, which means an exotic language can win over the ones you actually
+publish — a short HTML snippet may end up highlighted as `routeros`, for
+example. To avoid that, limit the candidates to the languages relevant for your
+site using the `autodetectLanguages` option of the data processor:
+
+```
+tt_content.codeblock.dataProcessing.1567071612 {
+    autodetectLanguages = bash,css,diff,dockerfile,ini,json,php,scss,sql,typescript,xml,yaml
+}
+```
+
+The value is a comma-separated list of language names as used by highlight.php
+(HTML is covered by `xml`). Unknown names are ignored. If the option is empty
+or missing, all languages are used, which is the default.
+
 ## Installation
 
 Add this extension to your TYPO3 setup. Install using composer: `composer req b13/codeblock`.

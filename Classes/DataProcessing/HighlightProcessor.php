@@ -46,10 +46,9 @@ class HighlightProcessor implements DataProcessorInterface
         $targetVariableName = $cObj->stdWrapValue('as', $processorConfiguration, 'bodytext_formatted');
         $highlight = GeneralUtility::makeInstance(Highlighter::class);
 
-        // Let highlight.php decide which code language to use from all registered if "detect automatically" is selected.
+        // Let highlight.php decide which code language to use if "detect automatically" is selected.
         if (!($processedData['data']['code_language'] ?? true)) {
-            $languages = $highlight->listLanguages();
-            $highlight->setAutodetectLanguages($languages);
+            $highlight->setAutodetectLanguages($this->getAutodetectLanguages($cObj, $processorConfiguration, $highlight));
             $highlighted = $highlight->highlightAuto($processedData['data'][$fieldName]);
         } else {
             $highlighted = $highlight->highlight($processedData['data']['code_language'], $processedData['data'][$fieldName]);
@@ -59,5 +58,21 @@ class HighlightProcessor implements DataProcessorInterface
         $processedData[$targetVariableName]['language'] = $highlighted->language;
         $processedData[$targetVariableName]['lines'] = preg_split('/\r\n|\r|\n/', $highlighted->value);
         return $processedData;
+    }
+
+    /**
+     * Narrowing the candidates down via the "autodetectLanguages" configuration avoids exotic languages winning the
+     * detection over the ones actually in use. Unknown entries are dropped, an empty result falls back to all languages.
+     */
+    protected function getAutodetectLanguages(ContentObjectRenderer $cObj, array $processorConfiguration, Highlighter $highlight): array
+    {
+        $availableLanguages = $highlight->listLanguages();
+        $configuredLanguages = GeneralUtility::trimExplode(
+            ',',
+            (string)$cObj->stdWrapValue('autodetectLanguages', $processorConfiguration, ''),
+            true
+        );
+
+        return array_values(array_intersect($configuredLanguages, $availableLanguages)) ?: $availableLanguages;
     }
 }
